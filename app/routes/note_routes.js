@@ -15,28 +15,26 @@ module.exports = function (app, db) {
       }
     });
   });
-
-
-  app.delete('/notes/:id', (req, res) => {
+  app.delete('/products/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    db.collection('notes').remove(details, (err, item) => {
+    db.collection('products').remove(details, (err, item) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
-        res.send('Note ' + id + ' deleted!');
+        res.send('Product ' + req.body.name + ' DELETE!');
       }
     });
   });
-  app.put('/notes/:id', (req, res) => {
+  app.put('/products/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    const note = { text: req.body.body, title: req.body.title };
-    db.collection('notes').update(details, note, (err, result) => {
+    const product = { name: req.body.name, img: req.body.img, descr: req.body.descr, prize: req.body.prize };
+    db.collection('products').update(details, product, (err, result) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
-        res.send(note);
+          res.json('Product ' + req.body.name + ' changed!');
       }
     });
   });
