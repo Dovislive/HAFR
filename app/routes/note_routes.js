@@ -7,6 +7,8 @@ module.exports = function (app, db) {
   });
   app.post('/products', (req, res) => {
     const product = { name: req.body.name, img: req.body.img, descr: req.body.descr, prize: req.body.prize };
+//      const { headers, method, url } = req;
+//       console.log(24, headers);
     db.collection('products').insert(product, (err, result) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
