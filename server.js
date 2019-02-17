@@ -4,10 +4,18 @@ const bodyParser = require('body-parser');
 const db = require('./config/db');
 const app = express();
 const port = 8000;
+var cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('json spaces', 40);
+app.use(cors({
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'origin': '*',
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}));
 
 MongoClient.connect(db.url, (err, database) => {
   if (err) return console.log(err)

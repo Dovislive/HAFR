@@ -11,13 +11,7 @@ module.exports = function (app, db) {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
-//          console.log(32, result.ops);
-//          console.log(33, result.ops[0]);
-//          res.json(result.ops{0});
-          res.status(200).json({
-        message: 'Email sent successfully.'
-    });
-//          res.send(JSON.stringify({ a: 1 }));
+        res.status(200).json(result.ops[0]);
       }
     });
   });
