@@ -1,19 +1,23 @@
 var ObjectID = require('mongodb').ObjectID;
 module.exports = function (app, db) {
   app.get('/products', (req, res) => {
-    db.collection('products').find().limit(10).toArray()
+    db.collection('products').find().limit(100).toArray()
       .then(out => res.send(out))
     // .then(() => conn.close());
   });
   app.post('/products', (req, res) => {
     const product = { name: req.body.name, img: req.body.img, descr: req.body.descr, prize: req.body.prize };
-    //      const { headers, method, url } = req;
-    console.log(24, req.body);
     db.collection('products').insert(product, (err, result) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
-        res.send(result.ops[0]);
+//          console.log(32, result.ops);
+//          console.log(33, result.ops[0]);
+//          res.json(result.ops{0});
+          res.status(200).json({
+        message: 'Email sent successfully.'
+    });
+//          res.send(JSON.stringify({ a: 1 }));
       }
     });
   });
