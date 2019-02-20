@@ -11,6 +11,7 @@ module.exports = function (app, db) {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
+        // console.log(45, result);
         res.status(200).json(result.ops[0]);
       }
     });
@@ -23,6 +24,8 @@ module.exports = function (app, db) {
         res.send({ 'error': 'An error has occurred' });
       } else {
         res.send('Product ' + req.body.name + ' DELETE!');
+        // res.status(200).json(result.item[0]);
+        // console.log(46, item);
       }
     });
   });
