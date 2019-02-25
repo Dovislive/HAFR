@@ -23,9 +23,7 @@ module.exports = function (app, db) {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
-        res.send('Product ' + req.body.name + ' DELETE!');
-        // res.status(200).json(result.item[0]);
-        // console.log(46, item);
+        res.status(200).json({_id: id});
       }
     });
   });
@@ -33,11 +31,11 @@ module.exports = function (app, db) {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
     const product = { name: req.body.name, img: req.body.img, descr: req.body.descr, prize: req.body.prize };
-    db.collection('products').update(details, product, (err, result) => {
+    db.collection('products').findOneAndUpdate(details, {$set:product}, {returnOriginal: false}, (err, result) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
-        res.json('Product ' + req.body.name + ' changed!');
+        res.status(200).json(result.value);
       }
     });
   });
