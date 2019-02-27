@@ -40,13 +40,13 @@ module.exports = function (app, db) {
   });
   //category
   app.get('/category', (req, res) => {
-    db.collection('category').find().limit(100).toArray()
+    db.collection('categories').find().limit(100).toArray()
       .then(out => res.send(out))
   });
 
   app.post('/category', (req, res) => {
     const category = { name: req.body.name, img: req.body.img };
-    db.collection('category').insert(category, (err, result) => {
+    db.collection('categories').insert(category, (err, result) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
@@ -57,7 +57,7 @@ module.exports = function (app, db) {
   app.delete('/category/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    db.collection('category').remove(details, (err, item) => {
+    db.collection('categories').remove(details, (err, item) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
@@ -68,8 +68,8 @@ module.exports = function (app, db) {
   app.put('/category/:id', (req, res) => {
     const id = req.params.id;
     const details = { '_id': new ObjectID(id) };
-    const product = { name: req.body.name, img: req.body.img };
-    db.collection('category').findOneAndUpdate(details, {$set:category}, {returnOriginal: false}, (err, result) => {
+    const category = { name: req.body.name, img: req.body.img };
+    db.collection('categories').findOneAndUpdate(details, {$set:category}, {returnOriginal: false}, (err, result) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
